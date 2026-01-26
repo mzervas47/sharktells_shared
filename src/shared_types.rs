@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-use std::str::FromStr;
+use crate::SettlementCurrency;
 
 
 //pub quote: String ??
@@ -17,100 +17,6 @@ pub enum ContractType {
     Inverse,  // base margined (e.g. BTC)
     Spot,     // no leverage
 }
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, bincode::Decode, bincode::Encode)]
-pub enum SettlementCurrency {
-    USD,
-    USDT,
-    USDC,
-    USDE,
-    BTC,
-    ETH,
-    SOL,
-    BNB,
-    ADA,
-    XRP,
-    DOGE,
-    TRX,
-    LINK,
-    AVAX,
-    DOT,
-    LTC,
-    BCH,
-    UNI,
-    NEAR,
-    SHIB,
-    SUIT,
-    HBAR,
-    SUI,
-    TON,
-    AAVE,
-    TAO,
-    XLM,
-    XMR,
-    ZEC,
-    HYPE,
-    DAI,
-    EUR,
-    BRL,
-    PLN,
-    TRY,
-    MNT,
-    XUSD,
-    RLUSD,
-
-}
-
-impl FromStr for SettlementCurrency {
-    type Err = ();
-    
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s {
-            "BTC" | "XBT" => Ok(SettlementCurrency::BTC),
-            "ETH" => Ok(SettlementCurrency::ETH),
-            "SOL" => Ok(SettlementCurrency::SOL),
-            "XRP" => Ok(SettlementCurrency::XRP),
-            "BNB" => Ok(SettlementCurrency::BNB),
-            "ADA" => Ok(SettlementCurrency::ADA),
-            "DOGE" => Ok(SettlementCurrency::DOGE),
-            "TRX" => Ok(SettlementCurrency::TRX),
-            "LINK" => Ok(SettlementCurrency::LINK),
-            "AVAX" => Ok(SettlementCurrency::AVAX),
-            "DOT" => Ok(SettlementCurrency::DOT),
-            "LTC" => Ok(SettlementCurrency::LTC),
-            "BCH" => Ok(SettlementCurrency::BCH),
-            "UNI" => Ok(SettlementCurrency::UNI),
-            "NEAR" => Ok(SettlementCurrency::NEAR),
-            "SHIB" => Ok(SettlementCurrency::SHIB),
-            "SUI" => Ok(SettlementCurrency::SUI),
-            "HBAR" => Ok(SettlementCurrency::HBAR),
-            "TON" => Ok(SettlementCurrency::TON),
-            "AAVE" => Ok(SettlementCurrency::AAVE),
-            "TAO" => Ok(SettlementCurrency::TAO),
-            "XLM" => Ok(SettlementCurrency::XLM),
-            "XMR" => Ok(SettlementCurrency::XMR),
-            "ZEC" => Ok(SettlementCurrency::ZEC),
-            "HYPE" => Ok(SettlementCurrency::HYPE),
-            "USD" => Ok(SettlementCurrency::USD),
-            "USDT" => Ok(SettlementCurrency::USDT),
-            "USDC" => Ok(SettlementCurrency::USDC),
-            "DAI" => Ok(SettlementCurrency::DAI),
-            "EUR" => Ok(SettlementCurrency::EUR),
-            "USDE" => Ok(SettlementCurrency::USDE),
-            "BRL" => Ok(SettlementCurrency::BRL),
-            "PLN" => Ok(SettlementCurrency::PLN),
-            "TRY" => Ok(SettlementCurrency::TRY),
-            "MNT" => Ok(SettlementCurrency::MNT),
-            "XUSD" => Ok(SettlementCurrency::XUSD),
-            "RLUSD" => Ok(SettlementCurrency::RLUSD),
-            _ => Err(()),
-        }
-    }
-}
-
-//["BTC", "ETH", "SOL", "XRP", "BNB", "DOGE", "ZEC", "ADA", "SUI", "BCH", "TRX", "LINK", "AVAX", "XAUt", "PAXG", "LTC", "UNI", "PEPE", "AAVE", "HYPE", "DOT", "NEAR", "TON", "ENA", "ASTER"])
-
-
 
 pub type ExchangeKey = (Exchange, SymbolPair, ContractType, SettlementCurrency);
 
