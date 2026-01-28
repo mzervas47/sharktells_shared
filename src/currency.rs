@@ -51,6 +51,16 @@ pub enum Currency {
     CHF,
 }
 
+impl Currency {
+    pub fn is_tier_one(&self) -> bool {
+        matches!(self, 
+            Currency::USD | Currency::USDT | Currency::USDC |
+            Currency::EUR | Currency::GBP | Currency::JPY |
+            Currency::BTC | Currency::ETH
+        )
+    }
+}
+
 impl FromStr for Currency {
     type Err = ();
     
