@@ -1,5 +1,6 @@
 use serde::{Serialize, Deserialize};
 use crate::SettlementCurrency;
+use crate::QuoteCurrency;
 
 
 //pub quote: String ??
@@ -197,6 +198,23 @@ pub enum SocketTopic {
     Trades,
     Klines,
     Liquidations,
+    Debug,
+}
+
+impl SocketTopic {
+    pub fn name(&self) -> &'static str {
+        match self {
+            SocketTopic::Price => "price",
+            SocketTopic::Depth => "depth",
+            SocketTopic::Liquidations => "liquidations",
+            SocketTopic::OpenInterest => "open_interest",
+            SocketTopic::Funding => "funding",
+            SocketTopic::MarkPrice => "mark_price",
+            SocketTopic::Trades => "trades",
+            SocketTopic::Klines => "klines",
+            SocketTopic::Debug => "debug",
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, bincode::Decode, bincode::Encode)] 
@@ -265,3 +283,37 @@ impl LiquidationSnapshot {
         }
     }
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct InstrumentSnapshot {
+    pub exchange: Exchange,
+    pub raw_symbol: String,
+    pub canonical_symbol: String,
+    pub contract_type: ContractType,
+    pub settlement_currency: SettlementCurrency,
+    pub quote_currency: QuoteCurrency,
+    pub contract_size: f64,
+    pub tick_size: f64,
+    pub lot_size: f64,
+    pub socket: SocketKind,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]
+pub enum SocketKind {
+    BinancePublic { instance: u32 }, 
+    BybitPublic  { instance: u32 },
+    KucoinPublic { instance: u32 },
+    KrakenPublic { instance: u32 },
+    DeribitPublic { instance: u32 },
+    OkxPublic { instance: u32 },    
+    OkxBusiness { instance: u32 }, 
+    BinancePublicSpot { instance: u32 }, 
+    BybitPublicSpot { instance: u32 }, 
+    OkxPublicSpot { instance: u32 }, 
+    DeribitPublicSpot { instance: u32 }, 
+    KrakenPublicSpot { instance: u32 }, 
+    DeribitPublicInverse { instance: u32 }, 
+    BinancePublicInverse {instance: u32 }, 
+    BybitPublicInverse {instance: u32 }, 
+}
+
